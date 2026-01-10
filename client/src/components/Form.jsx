@@ -5,6 +5,7 @@ const Form = () => {
   const [myName, setMyName] = useState("");
   const [myText, setMyText] = useState("");
   const [frontMessages, setFrontMessages] = useState([]);
+  const [myRoom, setMyRoom] = useState("");
 
   useEffect(() => {
     socket.on("chat", (message) => {
@@ -17,7 +18,9 @@ const Form = () => {
 
   function handleSubmit(e) {
     e.preventDefault();
-    socket.emit("chat", { myName, myText });
+    // console.log("info: ", myName, myRoom, myText);
+    socket.emit("chat", { myName, myText, myRoom });
+    // setMyRoom("");
     setMyText("");
   }
   return (
@@ -38,11 +41,20 @@ const Form = () => {
           )}
         </div>
       </div>
-      <form
-        action=""
-        className="flex justify-center items-center flex-col"
-        // onSubmit={handleSubmit}
-      >
+      <form action="" className="flex justify-center items-center flex-col">
+        <div className="mb-5">
+          <label htmlFor="" className="me-2">
+            Enter Room Name:
+          </label>
+          <input
+            type="text"
+            className="border"
+            value={myRoom}
+            onChange={(e) => {
+              setMyRoom(e.target.value);
+            }}
+          />
+        </div>
         <div className="mb-5">
           <label htmlFor="" className="me-2">
             Enter Your Name:
@@ -56,6 +68,7 @@ const Form = () => {
             }}
           />
         </div>
+
         <div>
           <label htmlFor="" className="me-2">
             Enter Your Message:

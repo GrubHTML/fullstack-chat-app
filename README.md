@@ -1,5 +1,14 @@
-# **Architected as a Full-Stack Communication Platform**
+# **Full-Stack Chat Application**
 
-## **Real-Time Bi-Directional Messaging** powered by **Socket.io**
+## A **Real-Time bi-directional chat application** build with a modern **full-stack architecture**, designed to demonstrate **production-level backend practices** and scalable system design.
 
-## Structured data management using **MySQL**.
+## 🚀 Core Features (Implemented)
+
+### Backend
+
+- **Node.js & Express** for RESTful API development
+- **Sequelize ORM (MySQL)** for relational data storage. Also Proper associations between entities.
+- Bcrypt for hashing password
+- Zod for schema validation
+- Express rate limit
+- JWT for authentication and authorization
