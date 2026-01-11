@@ -21,14 +21,14 @@ const corsOptions = {
 app.use(cors(corsOptions));
 // JSON payloads
 app.use(express.json());
-// Models
-import "./models/user.model.js";
 
 // Routers
 import userRouter from "./routers/auth.routes.js";
+import ChatMessageRouter from "./routers/chatMessage.route.js";
 
 //Middlewares
 app.use("/api", userRouter);
+app.use("/api", ChatMessageRouter);
 // Socket - HTTP
 const server = createServer(app);
 const io = new Server(server, {

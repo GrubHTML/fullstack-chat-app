@@ -1,5 +1,5 @@
 import express from "express";
-import { createUser } from "../controllers/auth.controller.js";
+import { userSignIn, userSignUp } from "../controllers/auth.controller.js";
 import { validate } from "../middlewares/validation.middleware.js";
 import { userValidationSchema } from "../validations/schema.validation.js";
 import { authLimiter } from "../middlewares/rateLimit.middleware.js";
@@ -9,7 +9,12 @@ userRouter.post(
   "/signup",
   authLimiter,
   validate(userValidationSchema.signup),
-  createUser
+  userSignUp
 );
-
+userRouter.post(
+  "/signin",
+  // authLimiter,
+  // validate(userValidationSchema.signin),
+  userSignIn
+);
 export default userRouter;
