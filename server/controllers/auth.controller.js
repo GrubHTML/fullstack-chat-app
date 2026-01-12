@@ -10,8 +10,12 @@ export const userSignUp = async (req, res) => {
     username,
     email,
     password,
-    Profile: { avatar, bio, address },
+    Profile = {},
   } = req.body;
+  const { bio, address, avatar = null } = Profile;
+  if (!bio || !address) {
+    return res.status(400).json({ message: "Bio & address required" });
+  }
   const saltRounds = 10;
   try {
     const hashedPassword = await bcrypt.hash(password, saltRounds);
@@ -33,7 +37,7 @@ export const userSignUp = async (req, res) => {
     const { password: _password, ...safeuser } = userData.toJSON();
     if (!userData) return res.status(401).json("failed to create user");
     return res
-      .status(200)
+      .status(201)
       .json({ message: "User created successfully!", safeuser });
   } catch (error) {
     return res.status(500).json({ message: "internal server error" });

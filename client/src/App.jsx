@@ -1,6 +1,7 @@
 import { useEffect } from "react";
 import Form from "./components/Form";
 import socket from "./socket/socket";
+import AppRouter from "./routes/AppRouter.jsx";
 
 const App = () => {
   useEffect(() => {
@@ -9,14 +10,7 @@ const App = () => {
       socket.disconnect();
     };
   }, []);
-  return (
-    <div>
-      <h1 className="text-3xl font-bold text-center my-10">
-        Welcome to Mini Chat!
-      </h1>
-      <Form />
-    </div>
-  );
+  return <AppRouter />;
 };
 
 export default App;

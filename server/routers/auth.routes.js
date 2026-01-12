@@ -7,8 +7,8 @@ const userRouter = express.Router();
 
 userRouter.post(
   "/signup",
-  authLimiter,
-  validate(userValidationSchema.signup),
+  // authLimiter,
+  // validate(userValidationSchema.signup),
   userSignUp
 );
 userRouter.post(

@@ -13,3 +13,12 @@
 - Express rate limit
 - JWT for authentication and authorization
 <!-- - Refresh Token -->
+
+### Frontend
+
+- React Router
+- React Hook From
+- Zod
+- Zod HookForm Resolver
+- axios
+- tanstack query
