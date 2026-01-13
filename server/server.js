@@ -21,10 +21,11 @@ const corsOptions = {
 app.use(cors(corsOptions));
 // JSON payloads
 app.use(express.json());
-
+app.use(cookieParser());
 // Routers
 import userRouter from "./routers/auth.routes.js";
 import ChatMessageRouter from "./routers/chatMessage.route.js";
+import cookieParser from "cookie-parser";
 
 //Middlewares
 app.use("/api", userRouter);
@@ -52,7 +53,7 @@ io.on("connection", (socket) => {
 // DB Connection
 const dbConnection = async () => {
   try {
-    await sequelize.sync({ force: false });
+    await sequelize.sync({ alter: true });
     console.log("DB Connection has been established successfully.");
   } catch (error) {
     console.error("Unable to connect to the database:", error);

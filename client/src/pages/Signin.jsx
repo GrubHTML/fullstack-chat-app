@@ -1,8 +1,10 @@
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useMutation } from "@tanstack/react-query";
 import { useForm } from "react-hook-form";
+import { useAuth } from "../hooks/useAuth.js";
 import { z } from "zod";
 import { axiosInstance } from "../api/axiosInstance.js";
+import { useNavigate } from "react-router";
 const signinSchema = z.object({
   usernameOrEmail: z
     .string()
@@ -26,10 +28,12 @@ const inputPostAxios = async (formData) => {
     usernameOrEmail: formData.usernameOrEmail,
     password: formData.password,
   });
-  console.log(res.data);
+
   return res.data;
 };
 const Signin = () => {
+  const navigate = useNavigate();
+  const { login } = useAuth(); //useAuth(): Your custom hook - gets the login function to update auth context
   const {
     register,
     handleSubmit,
@@ -43,8 +47,14 @@ const Signin = () => {
   });
   const { isPending, error, mutate } = useMutation({
     mutationFn: inputPostAxios,
+    onSuccess: (data) => {
+      // onSuccess runs when API call succeeds
+      login(data.user, data.token); // update authContext with user info and token(comming from bckend send it as parameter of the function)
+      navigate("/dashboard"); // redirects to dashboard page
+    },
   });
   const onSubmit = (data) => {
+    // when form is submitted and pass the validation this function runs. It triggers the muitation(API Call) with the form data
     // console.log("Form Data is valid:", data);
     mutate(data);
   };
@@ -56,8 +66,9 @@ const Signin = () => {
       <input
         className="outline"
         placeholder="enter username or email"
-        {...register("usernameOrEmail")}
+        {...register("usernameOrEmail")} // spreads all necessary props(onChange, onBlu, ref, name) onto the input. And connects this input to the form state
       />
+      {/* Shows validation error if there is one and Optional chaining (?.) prevents errors if no error exists */}
       {errors.usernameOrEmail?.message}
       <input
         className="outline"
@@ -67,6 +78,7 @@ const Signin = () => {
       />
       {errors.password?.message}
 
+      {/* Button disabled while API call is in progress (prevents double-submission*/}
       <button className="border rounded-3xl" disabled={isPending} type="submit">
         {isPending ? "Singing in..." : "Sign IN"}
       </button>

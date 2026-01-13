@@ -12,7 +12,8 @@
 - Zod for schema validation
 - Express rate limit
 - JWT for authentication and authorization
-<!-- - Refresh Token -->
+- Cookie-parser
+- Refresh Token (with perosnal note)
 
 ### Frontend
 
@@ -22,3 +23,4 @@
 - Zod HookForm Resolver
 - axios
 - tanstack query
+- React Context Hook (with perosnal note)

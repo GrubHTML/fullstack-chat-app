@@ -1,5 +1,9 @@
 import express from "express";
-import { userSignIn, userSignUp } from "../controllers/auth.controller.js";
+import {
+  refresh,
+  userSignIn,
+  userSignUp,
+} from "../controllers/auth.controller.js";
 import { validate } from "../middlewares/validation.middleware.js";
 import { userValidationSchema } from "../validations/schema.validation.js";
 import { authLimiter } from "../middlewares/rateLimit.middleware.js";
@@ -17,4 +21,5 @@ userRouter.post(
   // validate(userValidationSchema.signin),
   userSignIn
 );
+userRouter.post("/refresh", refresh);
 export default userRouter;
